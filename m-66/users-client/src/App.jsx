@@ -18,9 +18,7 @@ function App() {
       <div>
         <h1 className="text-3xl text-red-600">users data -: {users.length}</h1>
         <ul>
-          <li>
-            
-          </li>
+        {users.map(user => <li key={user.id}>{user.name}</li>)}
         </ul>
       </div>
     </>
