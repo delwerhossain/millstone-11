@@ -7,26 +7,38 @@ const Home=()=> {
     const email = e.target.email.value;
     const name = e.target.name.value;
     const user = { name, email };
-    let response = await fetch(`http://localhost:3000/users`, {
-      method: "POST",
+
+    // let response = await fetch(`http://localhost:3000/users`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // });
+    // let data = await response.json();
+    // console.log(data);
+    // if (data.insertedId) {
+    //   alert('Users added successfully');
+    //   form.reset();
+    // }
+
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'content-type': 'application/json'
       },
-      body: JSON.stringify(user),
-    });
-    let data = await response.json();
-    setUsers(data);
-    e.form.reset()
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.insertedId) {
+          alert('Users added successfully');
+          form.reset();
+        }
+      })
   };
 
-//   useEffect(() => {
-//     const userData = async () => {
-//       let response = await fetch(`http://localhost:3000/users`);
-//       let data = await response.json();
-//       setUsers(data);
-//     };
-//     userData();
-//   }, []);
   return (
     <>
       <div className="mx-auto w-11/12">
