@@ -25,4 +25,4 @@ const Layouts = () => {
       );
     };
 
-export default Layouts;
+export default Layouts; 
