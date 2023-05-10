@@ -6,6 +6,7 @@ import Contact from "../pages/Contact/Contact";
 import About from "../pages/About/About";
 import Courses from "../pages/Courses/Courses";
 import Blogs from "../pages/Blogs/Blogs";
+import List from "../pages/List/List";
 
 export const router = createBrowserRouter([
     {
@@ -18,19 +19,24 @@ export const router = createBrowserRouter([
           element: <Home />,
         },
         {
-          path: "contact",
+          path: "/list",
+          element: <List />,
+          loader: () => fetch('http://localhost:5000/users')
+        },
+        {
+          path: "/contact",
           element: <Contact />,
         },
         {
-          path: "about",
+          path: "/about",
           element: <About />,
         },
         {
-          path: "courses",
+          path: "/courses",
           element: <Courses />,
         },
         {
-          path: "blogs",
+          path: "/blogs",
           element: <Blogs />,
         },
       ],

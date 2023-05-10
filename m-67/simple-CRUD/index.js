@@ -27,7 +27,12 @@ async function run() {
 
     const userCollection = client.db('usersDB').collection('users');
 
-    
+    app.get('/users', async (req, res) => {
+      const cursor = await userCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+     })
+
     app.post('/users', async(req, res) => {
         const user = req.body;
         console.log('new user', user);
