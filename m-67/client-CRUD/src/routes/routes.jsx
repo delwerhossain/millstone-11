@@ -7,6 +7,7 @@ import About from "../pages/About/About";
 import Courses from "../pages/Courses/Courses";
 import Blogs from "../pages/Blogs/Blogs";
 import List from "../pages/List/List";
+import Update from "../pages/Update/Update";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,11 @@ export const router = createBrowserRouter([
           path: "/list",
           element: <List />,
           loader: () => fetch('http://localhost:5000/users')
+        },
+        {
+          path: "/update/:id",
+          element: <Update />,
+          loader: ({params}) => fetch(`http://localhost:5000/update/${params.id}`)
         },
         {
           path: "/contact",

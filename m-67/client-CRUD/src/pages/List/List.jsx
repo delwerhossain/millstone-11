@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const List = () => {
   const data = useLoaderData();
-    const [listData, setListData] = useState(data);
-  
+  const [listData, setListData] = useState(data);
+
   const handleDelete = async (_id) => {
     console.log("delete", _id);
     fetch(`http://localhost:5000/users/${_id}`, {
@@ -36,14 +36,17 @@ const List = () => {
     <div>
       <h1 className="text-4xl font-semibold mb-8 ">List Page</h1>
       <ol className="w-11/12 mx-auto">
-        {listData && listData.map((item) => (
-          <li className="mb-6 border px-4 py-4 rounded" key={item._id}>
-            {item.name} : {item.email} : {item._id}
-            <button onClick={() => handleDelete(item._id)} className="ml-3 btn">
-              X
-            </button>
-          </li>
-        ))}
+        {listData &&
+          listData.map((item) => (
+            <li className="mb-6 border px-4 py-4 rounded" key={item._id}>
+              {item.name} : {item.email} : {item._id}
+              <Link to={`/update/${item._id}`} className="ml-3 btn">Update</Link>
+              <button
+                onClick={() => handleDelete(item._id)}
+                className="ml-3 btn"
+              >X</button>
+            </li>
+          ))}
         <li></li>
       </ol>
     </div>
