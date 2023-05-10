@@ -33,8 +33,7 @@ const Home=()=> {
       .then(data => {
         console.log(data);
         if (data.insertedId) {
-          alert('Users added successfully');
-          form.reset();
+          e.target.reset();
         }
       })
   };
