@@ -3,7 +3,24 @@ import { useLoaderData } from "react-router-dom";
 
 const Update = () => {
   const data = useLoaderData();
-  const handleUpdate = () => {};
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const name = e.target.name.value;
+    const user = { name, email };
+    fetch(`http://localhost:5000/update/${data._id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    })
+      .then((res) => res.json()
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            alert('user modified')
+          }
+        })
+    );
+  };
 
   return (
     <div>
@@ -21,7 +38,7 @@ const Update = () => {
                 type="email"
                 placeholder="email"
                 className="input"
-                value={data.email}
+                defaultValue={data.email}
                 required
               />
             </div>
@@ -34,7 +51,7 @@ const Update = () => {
                 type="text"
                 placeholder="username"
                 className="input"
-                value={data.name}
+                defaultValue={data.name}
                 required
               />
             </div>
