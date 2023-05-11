@@ -2,10 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Layouts from "../Layout/Layouts";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/Home/Home";
-import Contact from "../pages/Contact/Contact";
-import About from "../pages/About/About";
-import Courses from "../pages/Courses/Courses";
-import Blogs from "../pages/Blogs/Blogs";
+import AddCoffee from "../pages/AddCoffee/AddCoffee";
+import UpdateCoffee from "../pages/UpdateCoffee/UpdateCoffee";
+import ListCoffee from "../pages/ListCoffee/ListCoffee";
 
 export const router = createBrowserRouter([
     {
@@ -18,21 +17,17 @@ export const router = createBrowserRouter([
           element: <Home />,
         },
         {
-          path: "contact",
-          element: <Contact />,
+          path: "/add",
+          element: <AddCoffee />,
         },
         {
-          path: "about",
-          element: <About />,
+          path: "/update",
+          element: <UpdateCoffee />,
         },
         {
-          path: "courses",
-          element: <Courses />,
-        },
-        {
-          path: "blogs",
-          element: <Blogs />,
-        },
+          path: "/list",
+          element: <ListCoffee />,
+        }
       ],
     },
   ]);
