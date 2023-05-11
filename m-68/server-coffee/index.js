@@ -59,7 +59,8 @@ async function run() {
           const newCoffee = req.body;
           const result = await coffeeCollection.updateOne(
             { _id: new ObjectId(id) },
-            { $set: newCoffee }
+            { $set: newCoffee },
+            {upsert: true}
           );
           res.send(result);
         });
