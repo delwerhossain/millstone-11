@@ -41,6 +41,12 @@ async function run() {
       const result = await coffeeCollection.find().toArray();
       res.send(result);
     });
+    // list 
+    app.get("/coffee/:id", async (req, res) => {
+      const id = req.params.id
+      const result = await coffeeCollection.findOne({_id: new ObjectId(id)})
+      res.send(result);
+    });
     // delete from the collection
     app.delete('/coffee/:id', async (req, res) => {
       const id = req.params.id;
@@ -48,7 +54,7 @@ async function run() {
       res.send(result);
     })
     // update the collection
-    app.put('/coffee/:id', async (req, res) => {
+    app.patch('/coffee/:id', async (req, res) => {
           const id = req.params.id;
           const newCoffee = req.body;
           const result = await coffeeCollection.updateOne(

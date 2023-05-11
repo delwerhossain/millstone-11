@@ -21,7 +21,7 @@ const AddCoffee = () => {
       photo,
     };
     // sent data to backend
-    fetch("http://localhost:5000/coffee", {
+    fetch(`http://localhost:5000/coffee`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,19 +31,19 @@ const AddCoffee = () => {
       .then((response) => response.json())
         .then((data) => {
             console.log(data);
-          if (data.insertedId) {
-            Swal.fire({
-                title: 'success',
-                text: 'Coffee Added Successfully',
-                showDenyButton: true,
-                showCancelButton: true,
-                icon: 'success',
-                confirmButtonText: 'Cool'
-              })
-          }
+          // if (data.insertedId) {
+          //   Swal.fire({
+          //       title: 'success',
+          //       text: 'Coffee Added Successfully',
+          //       showDenyButton: true,
+          //       showCancelButton: true,
+          //       icon: 'success',
+          //       confirmButtonText: 'Cool'
+          //     })
+          // }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
   return (
