@@ -13,7 +13,7 @@ app.use(express.json());
 
 // routes 
 app.get("/", (req, res) => {
-  res.send("simple CRUD");
+  res.send("coffee CRUD");
 });
 app.listen(port, () => {
   console.log(`simple CRUD listening on ${port}`);
