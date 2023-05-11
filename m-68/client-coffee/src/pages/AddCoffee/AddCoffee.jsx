@@ -1,4 +1,4 @@
-import React from "react";
+import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
   const handleAddCoffee = (e) => {
@@ -29,8 +29,18 @@ const AddCoffee = () => {
       body: JSON.stringify(newCoffee),
     })
       .then((response) => response.json())
-      .then((data) => {
-        form.reset();
+        .then((data) => {
+            console.log(data);
+          if (data.insertedId) {
+            Swal.fire({
+                title: 'success',
+                text: 'Coffee Added Successfully',
+                showDenyButton: true,
+                showCancelButton: true,
+                icon: 'success',
+                confirmButtonText: 'Cool'
+              })
+          }
       })
       .catch((err) => {
         console.log(err);

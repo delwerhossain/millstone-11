@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-require('dotenv').config()
+require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,25 +19,52 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const coffeeCollection = client.db("coffeeDB").collection("coffee");
 
+    //insert into the collection
     app.post("/coffee", async (req, res) => {
-      const newCoffee = req.body
+      const newCoffee = req.body;
       console.log(newCoffee);
-     })
+      const result = await coffeeCollection.insertOne(newCoffee);
+      res.send(result);
+    });
 
+    // list 
+    app.get("/coffee", async (req, res) => {
+      const result = await coffeeCollection.find().toArray();
+      res.send(result);
+    });
+    // delete from the collection
+    app.delete('/coffee/:id', async (req, res) => {
+      const id = req.params.id;
+      const result = await coffeeCollection.deleteOne({ _id: new ObjectId(id) });
+      res.send(result);
+    })
+    // update the collection
+    app.put('/coffee/:id', async (req, res) => {
+          const id = req.params.id;
+          const newCoffee = req.body;
+          const result = await coffeeCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newCoffee }
+          );
+          res.send(result);
+        });
 
 
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -45,12 +72,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-
-
-
-
-
-// routes 
+// routes
 app.get("/", (req, res) => {
   res.send("coffee CRUD");
 });
