@@ -1,8 +1,8 @@
 import React from "react";
 
 const AddCoffee = () => {
-    const handleAddCoffee = (e) => {
-      e.preventDefault();
+  const handleAddCoffee = (e) => {
+    e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const quantity = form.quantity.value;
@@ -19,8 +19,22 @@ const AddCoffee = () => {
       category,
       details,
       photo,
-      };
-      console.log(newCoffee);
+    };
+    // sent data to backend
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        form.reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="bg-[#F4F3F0] p-24">
@@ -33,7 +47,8 @@ const AddCoffee = () => {
               <span className="label-text">Coffee Name</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="name"
                 placeholder="Coffee Name"
@@ -46,7 +61,8 @@ const AddCoffee = () => {
               <span className="label-text">Available Quantity</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="quantity"
                 placeholder="Available Quantity"
@@ -62,7 +78,8 @@ const AddCoffee = () => {
               <span className="label-text">Supplier Name</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="supplier"
                 placeholder="Supplier Name"
@@ -75,7 +92,8 @@ const AddCoffee = () => {
               <span className="label-text">Taste</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="taste"
                 placeholder="Taste"
@@ -91,7 +109,8 @@ const AddCoffee = () => {
               <span className="label-text">Category</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="category"
                 placeholder="Category"
@@ -104,7 +123,8 @@ const AddCoffee = () => {
               <span className="label-text">Details</span>
             </label>
             <label className="input-group">
-              <input required
+              <input
+                required
                 type="text"
                 name="details"
                 placeholder="Details"
@@ -120,7 +140,8 @@ const AddCoffee = () => {
               <span className="label-text">Photo URL</span>
             </label>
             <label className="input-group">
-              <input required 
+              <input
+                required
                 type="text"
                 name="photo"
                 placeholder="Photo URL"
@@ -133,6 +154,6 @@ const AddCoffee = () => {
       </form>
     </div>
   );
-}; 
+};
 
 export default AddCoffee;
