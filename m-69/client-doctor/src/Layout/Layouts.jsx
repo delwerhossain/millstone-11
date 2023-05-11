@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Navbar from '../pages/common/Navbar/Menu';
+import Footer from '../pages/common/Navbar/Footer';
 
 let menuList = [
   { title: "Home", link: "/", id: 1 },
@@ -16,11 +17,16 @@ export const NavContext = createContext({
 const Layouts = () => {
     return (
       <div className="mb-16">
+      
         <NavContext.Provider value={{menuList}}>
           <Navbar ></Navbar>
           </NavContext.Provider>
-          {/* outlet part  */}
-          <Outlet></Outlet>
+        {/* outlet part  */}
+        <div className='h-screen'>
+          
+        <Outlet></Outlet>
+        </div>
+        <Footer></Footer>
         </div>
       );
     };
