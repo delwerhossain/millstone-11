@@ -81,6 +81,8 @@ async function run() {
     );
   } finally {
     // Ensures that the client will close when you finish/error
+    //     db_user=doctorMaster
+    // db_pass=Q6Nzj1o3fnLaQ4fB
     // await client.close();
   }
 }
