@@ -61,12 +61,16 @@ async function run() {
       const updateData = {
         $set: {
           name: newDoctor.name,
-          email: newDoctor.email
+          email: newDoctor.email,
         },
       };
       // upsert data
       const option = { upsert: true };
-      const result = await doctorCollection.updateOne(filter, updateData,option);
+      const result = await doctorCollection.updateOne(
+        filter,
+        updateData,
+        option
+      );
       res.send(result);
     });
 
