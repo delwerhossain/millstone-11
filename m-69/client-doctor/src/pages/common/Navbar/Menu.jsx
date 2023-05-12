@@ -51,7 +51,8 @@ const Navbar = () => {
           </ul>
         </div>
         <Link className="normal-case text-xl">
-          <img className="w-16" src={logo} alt="" />
+          <img className="w-16 md:w-20 lg:w-28" src={logo} alt="" />
+          
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
