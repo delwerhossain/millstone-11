@@ -25,8 +25,14 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const doctorCollection = client.db("doctorDB").collection("doctor");
+    const sevicesCollection = client.db("doctorDB").collection("sevices");
+
 
     //api setup
+    app.get("/sevices", async (req, res) => {
+      const result = await sevicesCollection.find().toArray();
+      res.send(result);
+    });
     // get
     app.get("/doctor", async (req, res) => {
       const result = await doctorCollection.find().toArray();
