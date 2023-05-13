@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
 
     const { createUser } = useContext(AuthContext);
+    
+  const [error, setError] = useState("");
+
+  const [success, setSuccess] = useState("");
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -18,9 +22,15 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
+                setSuccess('login success')
+                setError('')
                 console.log(user)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
+                setSuccess('')
+            })
 
     }
 
@@ -38,19 +48,19 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name='name' placeholder="name" className="input input-bordered" />
+                                <input required type="text" name='name' placeholder="name" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" name='email' placeholder="email" className="input input-bordered" />
+                                <input  required type="email" name='email' placeholder="email" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
-                                <input type="text" name='password' placeholder="password" className="input input-bordered" />
+                                <input  required type="password" name='password' placeholder="password" className="input input-bordered" />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
@@ -59,6 +69,8 @@ const Register = () => {
                                 <input className="btn btn-primary" type="submit" value="Sign Up" />
                             </div>
                         </form>
+                        <p className='text-2xl text-red-600'>{error }</p>
+                        <p className='text-2xl text-teal-600'>{success}</p>
                         <p className='my-4 text-center'>Already Have an Account? <Link className='text-orange-600 font-bold' to="/login">Login</Link> </p>
                     </div>
                 </div>

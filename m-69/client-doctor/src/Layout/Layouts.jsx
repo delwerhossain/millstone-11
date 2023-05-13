@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import Navbar from "../pages/common/Navbar/Menu";
+import Navbar from "../pages/common/Navbar/Navbar";
 import Footer from "../pages/common/Navbar/Footer";
 
 let menuList = [
