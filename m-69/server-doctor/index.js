@@ -27,9 +27,11 @@ async function run() {
     await client.connect();
     const doctorCollection = client.db("doctorDB").collection("doctor");
     const sevicesCollection = client.db("doctorDB").collection("sevices");
+    const bookingsCollection = client.db("doctorDB").collection("bookings");
 
-
-    //api setup
+    ////////////////////////////////////////////////////////////////////////
+    //////////////////////// api setup ////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
     app.get("/services", async (req, res) => {
       const result = await sevicesCollection.find().toArray();
       res.send(result);
@@ -41,7 +43,29 @@ async function run() {
         _id: new ObjectId(id),
       });
       res.send(result);
-    }); 
+    });
+
+    ////////////////////////
+    // bookings api setup//
+    app.get("/bookings", async (req, res) => {
+      console.log(req.query.email);
+      let query = {};
+      if (req.query?.email) {
+        const query = { email: req.query.email };
+      }
+      const result = await bookingsCollection.find(query).toArray();
+      res.send(result);
+    });
+    //bookings post
+    app.post("/bookings", async (req, res) => {
+      const bookings = req.body;
+      const result = await bookingsCollection.insertOne(bookings);
+      res.send(result);
+    });
+
+
+
+    ////////////////////////////////////////////////////////////////
     // get
     app.get("/doctor", async (req, res) => {
       const result = await doctorCollection.find().toArray();
