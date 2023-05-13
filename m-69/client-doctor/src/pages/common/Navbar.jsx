@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { NavContext } from "../../../Layout/Layouts";
-import logo from "../../../assets/logo.svg";
+import logo from "./../../assets/logo.svg";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { AuthContext } from "../../../provider/AuthProvider";
+import { AuthContext } from "../../provider/AuthProvider";
+import { NavContext } from "../../Layout/Layouts";
 
 const Navbar = () => {
   const { menuList } = useContext(NavContext);

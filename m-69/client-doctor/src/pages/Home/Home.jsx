@@ -1,6 +1,7 @@
-import HomeBanner from '../../Components/HomeBanner/HomeBanner';
-import HomeAbout from '../../Components/HomeAbout/HomeAbout';
-import HomeServices from '../../Components/HomeServices/HomeServices';
+import HomeAbout from "../../Components/HomeCompo/HomeAbout/HomeAbout";
+import HomeBanner from "../../Components/HomeCompo/HomeBanner/HomeBanner";
+import HomeServices from "../../Components/HomeCompo/HomeServices/HomeServices";
+
 
 const Home = () => {
     return (

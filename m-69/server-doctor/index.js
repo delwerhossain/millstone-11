@@ -20,6 +20,7 @@ const client = new MongoClient(uri, {
   },
 });
 
+// api connection with MongoClient
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -40,7 +41,7 @@ async function run() {
         _id: new ObjectId(id),
       });
       res.send(result);
-    });
+    }); 
     // get
     app.get("/doctor", async (req, res) => {
       const result = await doctorCollection.find().toArray();
