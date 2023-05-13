@@ -1,4 +1,3 @@
-import React from 'react';
 import HomeBanner from '../../Components/HomeBanner/HomeBanner';
 import HomeAbout from '../../Components/HomeAbout/HomeAbout';
 import HomeServices from '../../Components/HomeServices/HomeServices';
