@@ -29,8 +29,16 @@ async function run() {
 
 
     //api setup
-    app.get("/sevices", async (req, res) => {
+    app.get("/services", async (req, res) => {
       const result = await sevicesCollection.find().toArray();
+      res.send(result);
+    });
+    //one service data
+    app.get("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await sevicesCollection.findOne({
+        _id: new ObjectId(id),
+      });
       res.send(result);
     });
     // get

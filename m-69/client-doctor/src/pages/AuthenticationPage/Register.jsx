@@ -24,10 +24,8 @@ const Register = () => {
                 const user = result.user;
                 setSuccess('login success')
                 setError('')
-                console.log(user)
             })
             .catch(error => {
-                console.log(error)
                 setError(error.message)
                 setSuccess('')
             })
