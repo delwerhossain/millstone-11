@@ -14,7 +14,7 @@ const Navbar = () => {
     .then(() => {
       // Sign-out successful.
     }).catch((error) => {
-      
+
     });
    }
   const menuPart = (
@@ -121,7 +121,7 @@ const Navbar = () => {
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
         </button>
-        {user && <img className="w-12 mr-1 rounded-full" src={user.photoURL} alt={user.displayName} /> }
+        {user && <img className="w-12 mr-1 rounded-full" src={user.photoURL} alt={user.displayName} title={user.displayName} /> }
         
         
        
