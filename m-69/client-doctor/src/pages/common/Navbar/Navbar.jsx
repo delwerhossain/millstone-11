@@ -7,8 +7,16 @@ import { AuthContext } from "../../../provider/AuthProvider";
 
 const Navbar = () => {
   const { menuList } = useContext(NavContext);
-  const { user } = useContext(AuthContext);
+  const { user ,signOutLog  } = useContext(AuthContext);
 
+  const handleSignOut = () => {
+    return signOutLog()
+    .then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      
+    });
+   }
   const menuPart = (
     <>
       {menuList.map((menu) => (
@@ -113,9 +121,11 @@ const Navbar = () => {
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
         </button>
-        <Link className="btn btn-primary p-2" to={"/login"}>
-          {user ? <FiLogOut></FiLogOut> : <FiLogIn></FiLogIn>}
-        </Link>
+        {user && <img className="w-12 mr-1 rounded-full" src={user.photoURL} alt={user.displayName} /> }
+        
+        
+       
+          {user ?<div className="btn btn-primary p-2" > <FiLogOut onClick={handleSignOut} title="logOut"></FiLogOut></div> : <Link className="btn btn-primary p-2" to={"/login"}><FiLogIn title="logOut"></FiLogIn></Link> }
       </div>
     </div>
   );
