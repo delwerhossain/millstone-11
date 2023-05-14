@@ -41,12 +41,18 @@ async function run() {
       const id = req.params.id;
       const options = {
         projection: {
-          title :1 , img: 1,price:1, service_id:1
-        }
-      }
-      const result = await sevicesCollection.findOne({
-        _id: new ObjectId(id),
-      } , options);
+          title: 1,
+          img: 1,
+          price: 1,
+          service_id: 1,
+        },
+      };
+      const result = await sevicesCollection.findOne(
+        {
+          _id: new ObjectId(id),
+        },
+        options
+      );
       res.send(result);
     });
 
@@ -67,8 +73,14 @@ async function run() {
       const result = await bookingsCollection.insertOne(bookings);
       res.send(result);
     });
-
-
+    // delete bookings
+    app.delete("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const deletedBookings = await bookingsCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+      res.send(deletedBookings);
+    });
 
     ////////////////////////////////////////////////////////////////
     // get

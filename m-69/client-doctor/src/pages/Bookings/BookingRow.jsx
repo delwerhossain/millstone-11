@@ -1,19 +1,26 @@
 import React from "react";
 
-const BookingRow = ({ booking }) => {
-  const { email, img, date, service, price } = booking;
+const BookingRow = ({ booking, handleDelete }) => {
+  const { _id, email, img, date, service, price } = booking;
+
   return (
     <tr>
       <th>
         <label>
-          <input type="checkbox" className="checkbox" />
+          {/* <input type="checkbox" className="checkbox" /> */}
+          <button
+            onClick={() => handleDelete(_id)}
+            className="btn bg-red-600 text-slate-50"
+          >
+            X
+          </button>
         </label>
       </th>
       <td>
         <div className="flex items-center space-x-3">
           <div className="avatar">
             <div className="mask mask-squircle w-12 h-12">
-              <img src={img} alt="Avatar Tailwind CSS Component" />
+              {img && <img src={img} alt="Avatar Tailwind CSS Component" />}
             </div>
           </div>
           <div>

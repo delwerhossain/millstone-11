@@ -11,7 +11,29 @@ const Bookings = () => {
       .then((res) => res.json())
       .then((data) => setBookings(data));
   }, []);
-  console.log(bookings);
+
+  // delete bookings
+  const handleDelete = (_id) => {
+    const proceed = confirm("Are you sure you want to delete");
+    const url = `http://localhost:5000/bookings/${_id}`;
+    if (proceed) {
+      fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          {
+            if (data.deletedCount > 0) {
+              alert("delete success");
+              const remaining = bookings.filter(
+                (booking) => booking._id !== _id
+              );
+              setBookings(remaining);
+            }
+          }
+        });
+    }
+  };
 
   return (
     <div className="overflow-x-auto w-full">
@@ -32,7 +54,11 @@ const Bookings = () => {
         <tbody>
           {/* row 1 */}
           {bookings.map((booking) => (
-            <BookingRow key={booking._id} booking={booking}></BookingRow>
+            <BookingRow
+              key={booking._id}
+              booking={booking}
+              handleDelete={handleDelete}
+            ></BookingRow>
           ))}
         </tbody>
       </table>
