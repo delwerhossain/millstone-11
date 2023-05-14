@@ -4,7 +4,7 @@ import BookingRow from "./BookingRow";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
   useEffect(() => {
     fetch(url)
@@ -14,29 +14,28 @@ const Bookings = () => {
   console.log(bookings);
 
   return (
-    <div>
-      <h1 className="text-5xl ">booking - {bookings.length}</h1>
-      <div className="overflow-x-auto">
-        <table className="table w-full">
-          {/* head */}
-          <thead>
-            <tr>
-              <th></th>
-              <th>Profile</th>
-
-              <th>Email</th>
-              <th>Service</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {bookings.map((booking) => {
-              <BookingRow key={booking._id} booking={booking}></BookingRow>;
-            })}
-          </tbody>
-        </table>
-      </div>
+    <div className="overflow-x-auto w-full">
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" className="checkbox" />
+              </label>
+            </th>
+            <th>Name</th>
+            <th>Job</th>
+            <th>Favorite Color</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* row 1 */}
+          {bookings.map((booking) => (
+            <BookingRow key={booking._id} booking={booking}></BookingRow>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
