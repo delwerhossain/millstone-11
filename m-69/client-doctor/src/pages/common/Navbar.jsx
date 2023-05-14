@@ -7,16 +7,17 @@ import { NavContext } from "../../Layout/Layouts";
 
 const Navbar = () => {
   const { menuList } = useContext(NavContext);
-  const { user ,signOutLog  } = useContext(AuthContext);
+  const { user, signOutLog } = useContext(AuthContext);
 
   const handleSignOut = () => {
     return signOutLog()
-    .then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-
-    });
-   }
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const menuPart = (
     <>
       {menuList.map((menu) => (
@@ -62,7 +63,12 @@ const Navbar = () => {
           </ul>
         </div>
         <Link className="normal-case text-xl">
-          <img className="w-16 md:w-20 lg:w-28" src={logo} alt="" />
+          <img
+            loading="lazy"
+            className="w-16 md:w-20 lg:w-28"
+            src={logo}
+            alt=""
+          />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -121,11 +127,26 @@ const Navbar = () => {
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
         </button>
-        {user && <img className="w-12 mr-1 rounded-full" src={user.photoURL} alt={user.displayName} title={user.displayName} /> }
-        
-        
-       
-          {user ?<div className="btn btn-primary p-2" > <FiLogOut onClick={handleSignOut} title="logOut"></FiLogOut></div> : <Link className="btn btn-primary p-2" to={"/login"}><FiLogIn title="logOut"></FiLogIn></Link> }
+        {user && (
+          <img
+            loading="lazy"
+            className="w-12 mr-1 rounded-full"
+            src={user.photoURL}
+            alt={user.displayName}
+            title={user.displayName}
+          />
+        )}
+
+        {user ? (
+          <div className="btn btn-primary p-2">
+            {" "}
+            <FiLogOut onClick={handleSignOut} title="logOut"></FiLogOut>
+          </div>
+        ) : (
+          <Link className="btn btn-primary p-2" to={"/login"}>
+            <FiLogIn title="logOut"></FiLogIn>
+          </Link>
+        )}
       </div>
     </div>
   );

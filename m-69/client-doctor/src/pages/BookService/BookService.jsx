@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
@@ -11,7 +11,6 @@ const BookService = () => {
     event.preventDefault();
 
     const form = event.target;
-    const name = form.name.value;
     const date = form.date.value;
     const email = user?.email;
     const booking = {

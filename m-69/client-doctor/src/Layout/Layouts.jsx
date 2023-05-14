@@ -1,11 +1,11 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 import Navbar from "../pages/common/Navbar";
 import Footer from "../pages/common/Footer";
 import { Outlet } from "react-router-dom";
 
 let menuList = [
   { title: "Home", link: "/", id: 1 },
-  // { title: "Contact", link: "/contact", id: 2 },
+  { title: "Orders", link: "/orders", id: 2 },
   // { title: "About", link: "/about", id: 3 },
   // { title: "Courses", link: "/courses", id: 4 },
   // { title: "Blogs", link: "/blogs", id: 5 },
