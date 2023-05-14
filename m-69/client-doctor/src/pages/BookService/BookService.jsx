@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
@@ -38,6 +38,11 @@ const BookService = () => {
         }
       });
   };
+
+  // today date
+  const [dateValue, setDateValue] = useState(
+    new Date().toISOString().substr(0, 10)
+  );
   return (
     <div>
       <h2 className="text-center text-3xl">Book Service: {title} </h2>
@@ -48,6 +53,7 @@ const BookService = () => {
               <span className="label-text">Name</span>
             </label>
             <input
+              required
               type="text"
               defaultValue={user?.displayName}
               name="name"
@@ -58,13 +64,21 @@ const BookService = () => {
             <label className="label">
               <span className="label-text">Date</span>
             </label>
-            <input type="date" name="date" className="input input-bordered" />
+            <input
+              required
+              defaultValue={dateValue}
+              onChange={(e) => setDateValue(e.target.value)}
+              type="date"
+              name="date"
+              className="input input-bordered"
+            />
           </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
+              required
               type="text"
               name="email"
               defaultValue={user?.email}
@@ -77,6 +91,7 @@ const BookService = () => {
               <span className="label-text">Due amount</span>
             </label>
             <input
+              required
               type="text"
               defaultValue={"$" + price}
               className="input input-bordered"
@@ -85,6 +100,7 @@ const BookService = () => {
         </div>
         <div className="form-control mt-6">
           <input
+            required
             className="btn btn-primary btn-block"
             type="submit"
             value="Order Confirm"
