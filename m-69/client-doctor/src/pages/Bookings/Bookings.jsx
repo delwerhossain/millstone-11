@@ -40,11 +40,7 @@ const Bookings = () => {
       <table className="table w-full">
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
+            <th>Delete</th>
             <th>Service Name</th>
             <th>Booking Time</th>
             <th>Price</th>

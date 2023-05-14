@@ -1,7 +1,5 @@
-import React from "react";
-
 const BookingRow = ({ booking, handleDelete }) => {
-  const { _id, email, img, date, service, price } = booking;
+  const { _id, img, date, service, price } = booking;
 
   return (
     <tr>
