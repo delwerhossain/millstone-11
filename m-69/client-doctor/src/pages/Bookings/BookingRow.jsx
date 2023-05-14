@@ -2,7 +2,7 @@ const BookingRow = ({ booking, handleDelete }) => {
   const { _id, img, date, service, price } = booking;
 
   return (
-    <tr>
+    <tr className="hover">
       <th>
         <label>
           {/* <input type="checkbox" className="checkbox" /> */}
