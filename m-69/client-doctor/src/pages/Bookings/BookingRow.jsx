@@ -24,7 +24,7 @@ const BookingRow = ({ booking }) => {
       <td>{date}</td>
       <td>{price}</td>
       <th>
-        <button className="btn btn-ghost btn-xs border">details</button>
+        <button className="btn btn-ghost btn-outline border">details</button>
       </th>
     </tr>
   );
