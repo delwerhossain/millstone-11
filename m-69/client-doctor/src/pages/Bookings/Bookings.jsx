@@ -1,19 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import BookingRow from "./BookingRow";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const { user, loading } = useContext(AuthContext);
+  const url = `http://localhost:5000/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setBookings(data));
-  }, [loading]);
+  }, []);
   console.log(bookings);
 
   return (
     <div>
-      <h1 className="text-5xl ">booking</h1>
+      <h1 className="text-5xl ">booking - {bookings.length}</h1>
       <div className="overflow-x-auto">
         <table className="table w-full">
           {/* head */}
@@ -29,16 +31,8 @@ const Bookings = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {bookings.map((booking, index) => {
-              <tr>
-                <th>{index}</th>
-                <th>
-                  <img loading="lazy" src={bookings.img} alt="" />
-                </th>
-                <td>{booking.email}</td>
-                <td>{bookings.service}</td>
-                <td>{bookings.price}</td>
-              </tr>;
+            {bookings.map((booking) => {
+              <BookingRow key={booking._id} booking={booking}></BookingRow>;
             })}
           </tbody>
         </table>
