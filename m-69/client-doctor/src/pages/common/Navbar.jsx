@@ -128,21 +128,21 @@ const Navbar = () => {
           </div>
         </button>
         {user && (
-          <img
-            loading="lazy"
-            className="w-12 mr-1 rounded-full"
-            src={user.photoURL}
-            alt={user.displayName}
-            title={user.displayName}
-          />
+          <>
+            <img
+              loading="lazy"
+              className="w-12 mr-1 rounded-full"
+              src={user?.photoURL}
+              alt={user?.displayName}
+              title={user?.displayName}
+            />
+            <div onClick={handleSignOut} className="btn btn-primary p-2">
+              <FiLogOut title="logOut"></FiLogOut>
+            </div>
+          </>
         )}
 
-        {user ? (
-          <div className="btn btn-primary p-2">
-            {" "}
-            <FiLogOut onClick={handleSignOut} title="logOut"></FiLogOut>
-          </div>
-        ) : (
+        {!user && (
           <Link className="btn btn-primary p-2" to={"/login"}>
             <FiLogIn title="logOut"></FiLogIn>
           </Link>

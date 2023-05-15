@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
+  // context api
   const { signIn, signInWithGoogle, signInWithGit } = useContext(AuthContext);
-
+  // location
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  // state
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -19,7 +24,7 @@ const Login = () => {
         const user = result.user;
         setSuccess("login success");
         setError("");
-        console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -33,6 +38,7 @@ const Login = () => {
       .then((result) => {
         setError("");
         setSuccess("login success - Google");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -48,6 +54,7 @@ const Login = () => {
       .then((result) => {
         setError("");
         setSuccess("login success - Google");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.
