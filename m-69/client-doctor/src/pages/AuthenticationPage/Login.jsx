@@ -36,6 +36,20 @@ const Login = () => {
   const handleGooglePopup = () => {
     return signInWithGoogle()
       .then((result) => {
+        const user = result.user;
+        const loggerUser = { email: user.email };
+        const url = `http://localhost:5000/jwt`;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loggerUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
         setError("");
         setSuccess("login success - Google");
         navigate(from, { replace: true });
