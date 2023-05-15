@@ -7,7 +7,12 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setBookings(data));
   }, []);
