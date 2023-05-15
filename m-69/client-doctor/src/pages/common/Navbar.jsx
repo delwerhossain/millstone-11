@@ -13,6 +13,7 @@ const Navbar = () => {
     return signOutLog()
       .then(() => {
         // Sign-out successful.
+        localStorage.removeItem("jwt");
       })
       .catch((error) => {
         console.log(error);
