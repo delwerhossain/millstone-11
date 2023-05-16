@@ -41,7 +41,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currentUser) {
         const loggerUser = { email: currentUser.email };
-        const url = `http://localhost:5000/jwt`;
+        const url = `https://server-car-doctor-exp-delwerhossain.vercel.app/jwt`;
         fetch(url, {
           method: "POST",
           headers: {
