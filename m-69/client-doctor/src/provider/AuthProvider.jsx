@@ -39,6 +39,24 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      if (currentUser) {
+        const loggerUser = { email: currentUser.email };
+        const url = `http://localhost:5000/jwt`;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loggerUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("jwt", data.token);
+          });
+      } else {
+        localStorage.removeItem("jwt");
+      }
     });
     return () => {
       return unsubscribe();
@@ -57,9 +75,9 @@ const AuthProvider = ({ children }) => {
   };
   // logout
   const signOutLog = () => {
-      setLoading(true);
-      return signOut(auth);
-    };
+    setLoading(true);
+    return signOut(auth);
+  };
 
   //////////////////////////////////
   // all auth sent in authContext//
@@ -70,7 +88,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     signInWithGoogle,
     signInWithGit,
-    signOutLog
+    signOutLog,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
