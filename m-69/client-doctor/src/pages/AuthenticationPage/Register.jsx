@@ -116,6 +116,7 @@ const Register = () => {
                   value="Sign Up"
                 />
               </div>
+              <div className="divider">OR</div>
               <div className="mt-4 flex gap-x-2">
                 <a
                   onClick={handleGooglePopup}

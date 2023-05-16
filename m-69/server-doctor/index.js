@@ -123,54 +123,6 @@ async function run() {
       res.send(deletedBookings);
     });
 
-    ////////////////////////////////////////////////////////////////
-    // get
-    app.get("/doctor", async (req, res) => {
-      const result = await doctorCollection.find().toArray();
-      res.send(result);
-    });
-
-    // post
-    app.post("/doctor", async (req, res) => {
-      const newDoctor = req.body;
-      const result = await doctorCollection.insertOne(newDoctor);
-      res.send(result);
-    });
-
-    // delete
-    app.delete("/doctor/:id", async (req, res) => {
-      const id = req.params.id;
-      const result = await doctorCollection.deleteOne({
-        _id: new ObjectId(id),
-      });
-      res.send(result);
-    });
-
-    // put method update method
-    app.put("/doctor/:id", async (req, res) => {
-      const id = req.params.id;
-      const newDoctor = req.body;
-      // finder data by id
-      const filter = {
-        _id: new ObjectId(id),
-      };
-      // update data
-      const updateData = {
-        $set: {
-          name: newDoctor.name,
-          email: newDoctor.email,
-        },
-      };
-      // upsert data
-      const option = { upsert: true };
-      const result = await doctorCollection.updateOne(
-        filter,
-        updateData,
-        option
-      );
-      res.send(result);
-    });
-
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
@@ -187,7 +139,7 @@ run().catch(console.dir);
 
 // routes
 app.get("/", (req, res) => {
-  res.send("simple CRUD");
+  res.send("simple car doctor CRUD");
 });
 app.listen(port, () => {
   console.log(`simple CRUD listening on ${port}`);
