@@ -12,18 +12,25 @@ import { Link, useLoaderData } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+const [itemsPerPage, setItemsPerPage] = useState(10);
   
 
   // loader
   const { totalProducts } = useLoaderData();
 
   // pagination counter
-  const itemsPerPage = 10;
+  // const itemsPerPage = 10;
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
   const paginationArrays = [...Array(totalPages).keys()];
   console.log(paginationArrays);
+   const options = [5, 10, 15, 20];
+   const handleSelectChange = (event)=> {
+     setItemsPerPage(parseInt(event.target.value));
+     setCurrentPage(0);
+   }
 
+  //products collection
   useEffect(() => {
     fetch("http://localhost:3000/products")
       .then((res) => res.json())
@@ -98,20 +105,46 @@ const Shop = () => {
       {/* pagination */}
 
       <div className="my-4 grid justify-center">
-        <h3 className="text-3xl  my-3 py-1 rounded-xl bg-slate-200 text-center">current page : {pageNumber}</h3>
+        <h3 className="my-3  rounded-xl bg-slate-200 py-1 text-center text-3xl">
+          current page : {currentPage}
+        </h3>
         <div className="flex gap-3">
           {paginationArrays.map((page) => (
             <button
               key={page}
-              onClick={() => setPageNumber(page)}
+              onClick={() => setCurrentPage(page)}
               className={`btn border-none bg-slate-300 text-xl  hover:text-white ${
-                page == pageNumber ? "bg-primary text-white" : "text-black"
+                page == currentPage ? "bg-primary text-white" : "text-black"
               }`}
             >
               {page}
             </button>
           ))}
         </div>
+        {/* <div className="dropdown-hover dropdown">
+          <label tabIndex={0} className="btn m-1">
+            Hover
+          </label>
+          <select
+            value={itemsPerPage}
+            onChange={handleSelectChange}
+            tabIndex={0}
+            className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+          >
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div> */}
+        <select className=" p-3 border bg-slate-200 rounded-xl my-3 font-bold text-center"  value={itemsPerPage} onChange={handleSelectChange}>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
     </>
   );
