@@ -23,7 +23,6 @@ const [itemsPerPage, setItemsPerPage] = useState(10);
   // const itemsPerPage = 10;
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
   const paginationArrays = [...Array(totalPages).keys()];
-  console.log(paginationArrays);
    const options = [5, 10, 15, 20 ,30 ,50 ,100];
    const handleSelectChange = (event)=> {
      setItemsPerPage(parseInt(event.target.value));
