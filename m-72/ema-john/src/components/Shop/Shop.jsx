@@ -94,20 +94,22 @@ const Shop = () => {
           </Cart>
         </div>
       </div>
+
       {/* pagination */}
 
-      <div className="my-4">
-        <h3>current page : {pageNumber}</h3>
+      <div className="my-4 grid justify-center">
+        <h3 className="text-3xl  my-3 py-1 rounded-xl bg-slate-200 text-center">current page : {pageNumber}</h3>
         <div className="flex gap-3">
           {paginationArrays.map((page) => (
-            <div className="">
-              <button
-                onClick={() => setPageNumber(page)}
-                className="btn text-4xl text-red-600"
-              >
-                {page}
-              </button>
-            </div>
+            <button
+              key={page}
+              onClick={() => setPageNumber(page)}
+              className={`btn border-none bg-slate-300 text-xl  hover:text-white ${
+                page == pageNumber ? "bg-primary text-white" : "text-black"
+              }`}
+            >
+              {page}
+            </button>
           ))}
         </div>
       </div>
