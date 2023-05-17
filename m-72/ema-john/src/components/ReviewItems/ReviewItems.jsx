@@ -2,7 +2,7 @@ import React from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 const ReviewItems = ({ product ,handleRemove}) => {
-  const { id, img, name, price, quantity, shipping } = product;
+  const { _id, img, name, price, quantity, shipping } = product;
   return (
     <div className="flex items-center justify-between rounded-lg border">
       <div className="flex  ">
@@ -18,7 +18,7 @@ const ReviewItems = ({ product ,handleRemove}) => {
         </div>
       </div>
           <div className="mr-2 rounded-full bg-red-200 p-4">
-              <button onClick={() => handleRemove(id)} >
+              <button onClick={() => handleRemove(_id)} >
         <TrashIcon className="h-6 w-6 text-red-500"></TrashIcon>
                   
               </button>
