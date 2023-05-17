@@ -105,10 +105,10 @@ const [itemsPerPage, setItemsPerPage] = useState(10);
       {/* pagination */}
 
       <div className="my-4 grid justify-center">
-        <h3 className="my-3  rounded-xl bg-slate-200 py-1 text-center text-3xl">
-          current page : {currentPage}
+        <h3 className="my-3  rounded-xl bg-slate-200 px-3 py-1 text-center text-3xl">
+          current page : {currentPage} and items per page : {itemsPerPage}
         </h3>
-        <div className="flex gap-3">
+        <div className="flex justify-center gap-3">
           {paginationArrays.map((page) => (
             <button
               key={page}
