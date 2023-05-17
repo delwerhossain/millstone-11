@@ -7,11 +7,22 @@ import {
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  
+
+  // loader
+  const { totalProducts } = useLoaderData();
+
+  // pagination counter
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
+  const paginationArrays = [...Array(totalPages).keys()];
+  console.log(paginationArrays);
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
@@ -64,24 +75,43 @@ const Shop = () => {
     deleteShoppingCart();
   };
   return (
-    <div className="shop-container">
-      <div className="products-container">
-        {products.map((product) => (
-          <Product
-            key={product._id}
-            product={product}
-            handleAddToCart={handleAddToCart}
-          ></Product>
-        ))}
+    <>
+      <div className="shop-container">
+        <div className="products-container">
+          {products.map((product) => (
+            <Product
+              key={product._id}
+              product={product}
+              handleAddToCart={handleAddToCart}
+            ></Product>
+          ))}
+        </div>
+        <div className="cart-container">
+          <Cart handleClear={handleClear} cart={cart} key={cart._id}>
+            <Link to={"/order"}>
+              <button className="btn bg-orange-500 ">Review</button>
+            </Link>
+          </Cart>
+        </div>
       </div>
-      <div className="cart-container">
-        <Cart handleClear={handleClear} cart={cart} key={cart._id}>
-          <Link to={"/order"}>
-            <button className="btn bg-orange-500 ">Review</button>
-          </Link>
-        </Cart>
+      {/* pagination */}
+
+      <div className="my-4">
+        <h3>current page : {pageNumber}</h3>
+        <div className="flex gap-3">
+          {paginationArrays.map((page) => (
+            <div className="">
+              <button
+                onClick={() => setPageNumber(page)}
+                className="btn text-4xl text-red-600"
+              >
+                {page}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
