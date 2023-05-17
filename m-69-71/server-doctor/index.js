@@ -58,70 +58,99 @@ async function run() {
     ///////////////////////////////////////////////////////////////////////
 
     //jwt authorization
-    app.post("/jwt", async (req, res) => {
-      const user = req.body;
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
+    try {
+      app.post("/jwt", async (req, res) => {
+        const user = req.body;
+        const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "1h",
+        });
+        res.send({ token });
       });
-      res.send({ token });
-    });
+    } catch (error) {
+      console.log(error);
+    }
 
-    // service get api
-    app.get("/services", async (req, res) => {
-      const result = await sevicesCollection.find().toArray();
-      res.send(result);
-    });
+    try {
+      // service get api
+      app.get("/services", async (req, res) => {
+        const result = await sevicesCollection.find().toArray();
+        res.send(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+   
     //one service data
-    app.get("/services/:id", async (req, res) => {
-      const id = req.params.id;
-      const options = {
-        projection: {
-          title: 1,
-          img: 1,
-          price: 1,
-          service_id: 1,
-        },
-      };
-      const result = await sevicesCollection.findOne(
-        {
-          _id: new ObjectId(id),
-        },
-        options
-      );
-      res.send(result);
-    });
+   try {
+     app.get("/services/:id", async (req, res) => {
+       const id = req.params.id;
+       const options = {
+         projection: {
+           title: 1,
+           img: 1,
+           price: 1,
+           service_id: 1,
+         },
+       };
+       const result = await sevicesCollection.findOne(
+         {
+           _id: new ObjectId(id),
+         },
+         options
+       );
+       res.send(result);
+     });    
+   } catch (error) {
+    console.log(error);
+   }
 
     /////////////////////////////////////////////////////////////////////////
     //////////////////////// bookings api setup ////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 
-    app.get("/bookings", verifyJwt, async (req, res) => {
-      const decoded = req.decoded;
-      console.log("came back to bookings --", decoded);
-      if (decoded.email !== req.query.email) {
-        return res.send({ error: 1, message: "forbidden access to bookings" });
-      }
-      let query = {};
-      if (req.query?.email) {
-        query = { email: req.query.email };
-      }
-      const result = await bookingsCollection.find(query).toArray();
-      res.send(result);
-    });
-    //bookings post
-    app.post("/bookings", async (req, res) => {
-      const bookings = req.body;
-      const result = await bookingsCollection.insertOne(bookings);
-      res.send(result);
-    });
-    // delete bookings
-    app.delete("/bookings/:id", async (req, res) => {
-      const id = req.params.id;
-      const deletedBookings = await bookingsCollection.deleteOne({
-        _id: new ObjectId(id),
+  try {
+      app.get("/bookings", verifyJwt, async (req, res) => {
+        const decoded = req.decoded;
+        console.log("came back to bookings --", decoded);
+        if (decoded.email !== req.query.email) {
+          return res.send({
+            error: 1,
+            message: "forbidden access to bookings",
+          });
+        }
+        let query = {};
+        if (req.query?.email) {
+          query = { email: req.query.email };
+        }
+        const result = await bookingsCollection.find(query).toArray();
+        res.send(result);
       });
-      res.send(deletedBookings);
-    });
+  } catch (error) {
+    console.log(error);
+  }
+    //bookings post
+    try {
+      app.post("/bookings", async (req, res) => {
+        const bookings = req.body;
+        const result = await bookingsCollection.insertOne(bookings);
+        res.send(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    // delete bookings
+ 
+    try {
+         app.delete("/bookings/:id", async (req, res) => {
+           const id = req.params.id;
+           const deletedBookings = await bookingsCollection.deleteOne({
+             _id: new ObjectId(id),
+           });
+           res.send(deletedBookings);
+         });
+    } catch (error) {
+      console.log(error);
+    }
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
